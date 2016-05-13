@@ -44,7 +44,7 @@ services:
     links:
       - db
     environment:
-      - 'DB_CONN=db://db/idealist'
+      - 'DB_CONN=mongodb://db/idealist'
       - NODE_ENV=staging
       - 'SECRET=super secret secret'
       - VIRTUAL_HOST=api.idealist.dorsaydevelopment.ca
