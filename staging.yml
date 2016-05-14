@@ -22,11 +22,11 @@ services:
   nginx-gen:
     image: jwilder/docker-gen
     container_name: nginx-gen
-    volumes_from:
-      - nginx
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - .:/etc/docker-gen/templates:ro
+    volumes_from:
+      - nginx
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -only-exposed -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     
   letsencrypt-nginx-proxy-companion:
@@ -79,7 +79,7 @@ services:
     image: 'mongo:latest'
     volumes:
       - /volumes/idealist/db:/data/db
-      - ./web/conf.d/:/etc/nginx/conf.d
+      - ./web/:/etc/nginx/
     ports:
       - '27017:27017'
     networks:
