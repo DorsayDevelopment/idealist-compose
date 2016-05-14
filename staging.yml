@@ -5,6 +5,9 @@ services:
   nginx:
     image: nginx
     container_name: nginx
+    depends_on: 
+      - api
+      - web
     volumes: 
       - /etc/nginx/conf.d
       - /etc/nginx/vhost.d
@@ -18,6 +21,7 @@ services:
       
   nginx-gen:
     image: jwilder/docker-gen
+    container_name: nginx-gen
     volumes_from:
       - nginx
     volumes:
@@ -79,7 +83,7 @@ services:
     ports:
       - '27017:27017'
     networks:
-    - proxy-tier
+      - proxy-tier
     
 networks:
   proxy-tier:
