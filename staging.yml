@@ -18,7 +18,6 @@ services:
       - '443:443'
     networks:
       - proxy-tier
-    entrypoint: -wait 5s:30s
       
   nginx-gen:
     image: jwilder/docker-gen
