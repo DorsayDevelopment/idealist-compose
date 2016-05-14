@@ -41,6 +41,8 @@ services:
     image: 'dorsaydevelopment/idealist-api:staging'
     links:
       - db
+    volumes:
+      - ./api/conf.d/:/etc/nginx/conf.d
     environment:
       - 'DB_CONN=mongodb://db/idealist'
       - NODE_ENV=staging
@@ -73,6 +75,7 @@ services:
     image: 'mongo:latest'
     volumes:
       - /volumes/idealist/db:/data/db
+      - ./web/conf.d/:/etc/nginx/conf.d
     ports:
       - '27017:27017'
     networks:
