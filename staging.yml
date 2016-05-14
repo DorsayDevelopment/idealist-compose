@@ -24,7 +24,7 @@ services:
     container_name: nginx-gen
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - .:/etc/docker-gen/templates:ro
+      - ./nginx.tmpl/:/etc/docker-gen/templates/nginx.tmpl:ro
     volumes_from:
       - nginx
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -only-exposed -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
@@ -43,6 +43,7 @@ services:
      
   api:
     image: 'dorsaydevelopment/idealist-api:staging'
+    container_name: api
     links:
       - db
     volumes:
@@ -63,6 +64,7 @@ services:
 
   web:
     image: 'dorsaydevelopment/idealist-web:staging'
+    container_name: web
     links:
       - api
     restart: always
@@ -74,9 +76,12 @@ services:
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=idealist.dorsaydevelopment.ca
       - LETSENCRYPT_EMAIL=dorsay@live.ca
+    volumes:
+      - ./web/conf.d/:/etc/nginx/conf.d
     
   db:
     image: 'mongo:latest'
+    container_name: db
     volumes:
       - /volumes/idealist/db:/data/db
       - ./web/:/etc/nginx/
