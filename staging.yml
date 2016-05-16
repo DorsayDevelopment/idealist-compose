@@ -57,6 +57,7 @@ services:
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=api.idealist.dorsaydevelopment.ca
       - LETSENCRYPT_EMAIL=dorsay@live.ca
+      - LETSENCRYPT_TEST=true
       
     restart: always
     networks:
@@ -76,6 +77,7 @@ services:
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=idealist.dorsaydevelopment.ca
       - LETSENCRYPT_EMAIL=dorsay@live.ca
+      - LETSENCRYPT_TEST=true
     volumes:
       - ./web/conf.d/:/etc/nginx/conf.d
     
@@ -84,7 +86,6 @@ services:
     container_name: db
     volumes:
       - /volumes/idealist/db:/data/db
-      - ./web/:/etc/nginx/
     ports:
       - '27017:27017'
     networks:
